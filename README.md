@@ -1,1 +1,1 @@
-# Uydu-G-r-nt-leme-Sistemi
+# Uydu-Goruntu-Isleme-Sistemi
