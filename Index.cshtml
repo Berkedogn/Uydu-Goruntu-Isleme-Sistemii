@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Uydu Görüntüsü Arama ve Yükleme";
+}
+
+<h2>Uydu Görüntüsü Arama</h2>
+
+<form method="get" asp-controller="Satellite" asp-action="Search">
+    <input type="text" name="region" placeholder="Bölge adı (örn: Akçakoca)" />
+    <button type="submit">Ara</button>
+</form>
+
+<hr />
+
+<h2>Veya Görsel Yükle</h2>
+
+<form method="post" enctype="multipart/form-data" asp-controller="Satellite" asp-action="UploadImage">
+    <input type="file" name="image" />
+    <button type="submit">Yükle</button>
+</form>
