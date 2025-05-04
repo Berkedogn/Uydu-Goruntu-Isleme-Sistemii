@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using UyduGoruntuWeb.Models;
+using Microsoft.AspNetCore.Mvc;
+using UyduGoruntu.Models;
 
-namespace UyduGoruntuWeb.Controllers
+namespace UyduGoruntu.Controllers
 {
     public class HomeController : Controller
     {
