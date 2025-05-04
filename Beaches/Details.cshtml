@@ -1,0 +1,21 @@
+﻿@* Views/Beaches/Details.cshtml *@
+@model SatelliteImageExplorer.Models.Beach
+
+@{
+    ViewData["Title"] = "Sahil Detay";
+}
+
+<h2>@Model.Name</h2>
+<div class="mb-3">
+    <p><strong>Şehir:</strong> @Model.City</p>
+    <p><strong>Açıklama:</strong> @Model.Description</p>
+</div>
+@if (!string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <div>
+        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid" />
+    </div>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+<a asp-action="Index" class="btn btn-secondary">Geri Dön</a>

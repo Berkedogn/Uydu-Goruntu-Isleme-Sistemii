@@ -1,0 +1,22 @@
+﻿@model SatelliteImageExplorer.Models.HistoricPlace
+@{
+    ViewData["Title"] = "Detaylar";
+}
+
+<h2>Detaylar</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Ad</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+
+        <dt class="col-sm-2">Açıklama</dt>
+        <dd class="col-sm-10">@Model.Description</dd>
+
+        <dt class="col-sm-2">Konum</dt>
+        <dd class="col-sm-10">@Model.Location</dd>
+    </dl>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+<a asp-action="Index" class="btn btn-secondary">Geri</a>
