@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SatelliteImageExplorer.Data;
-using SatelliteImageExplorer.Models;
+using UyduGoruntu.Data;
+using UyduGoruntu.Models;
 
 namespace SatelliteImageExplorer.Controllers
 {
@@ -14,98 +14,104 @@ namespace SatelliteImageExplorer.Controllers
             _context = context;
         }
 
-        // GET: Beaches
+        // Tüm plajları listele
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Beaches.ToListAsync());
+            var beaches = await _context.Beaches.ToListAsync();
+            return View(beaches);
         }
 
-        // GET: Beaches/Details/5
+        // Plaj detaylarını göster
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return BadRequest("ID bilgisi eksik.");
 
             var beach = await _context.Beaches.FirstOrDefaultAsync(m => m.Id == id);
-            if (beach == null) return NotFound();
+            if (beach == null) return NotFound("Plaj bulunamadı.");
 
             return View(beach);
         }
 
-        // GET: Beaches/Create
+        // Yeni plaj ekleme formu
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Beaches/Create
+        // Yeni plaj ekleme işlemi
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Beach beach)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Latitude,Longitude,ImagePath")] Beach beach)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(beach);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(beach);
+            if (!ModelState.IsValid) return View(beach);
+
+            _context.Add(beach);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Beaches/Edit/5
+        // Plaj düzenleme formu
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return BadRequest("ID bilgisi eksik.");
 
             var beach = await _context.Beaches.FindAsync(id);
-            if (beach == null) return NotFound();
+            if (beach == null) return NotFound("Plaj bulunamadı.");
 
             return View(beach);
         }
 
-        // POST: Beaches/Edit/5
+        // Plaj düzenleme işlemi
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Beach beach)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Latitude,Longitude,ImagePath")] Beach beach)
         {
-            if (id != beach.Id) return NotFound();
+            if (id != beach.Id) return NotFound("ID uyuşmazlığı.");
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(beach);
+
+            try
             {
-                try
-                {
-                    _context.Update(beach);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Beaches.Any(e => e.Id == id)) return NotFound();
-                    else throw;
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(beach);
+                await _context.SaveChangesAsync();
             }
-            return View(beach);
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!BeachExists(id)) return NotFound("Plaj mevcut değil.");
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Beaches/Delete/5
+        // Plaj silme onay sayfası
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) return BadRequest("ID bilgisi eksik.");
 
             var beach = await _context.Beaches.FirstOrDefaultAsync(m => m.Id == id);
-            if (beach == null) return NotFound();
+            if (beach == null) return NotFound("Plaj bulunamadı.");
 
             return View(beach);
         }
 
-        // POST: Beaches/Delete/5
+        // Plaj silme işlemi
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var beach = await _context.Beaches.FindAsync(id);
+            if (beach == null) return NotFound();
+
             _context.Beaches.Remove(beach);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // Yardımcı: Plaj mevcut mu kontrolü
+        private bool BeachExists(int id)
+        {
+            return _context.Beaches.Any(e => e.Id == id);
         }
     }
 }
