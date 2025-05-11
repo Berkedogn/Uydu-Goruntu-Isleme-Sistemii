@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using UyduGoruntu.Data;
 using UyduGoruntu.Models;
 
-namespace SatelliteImageExplorer.Controllers
+namespace UyduGoruntu.Controllers
 {
     public class BeachesController : Controller
     {
