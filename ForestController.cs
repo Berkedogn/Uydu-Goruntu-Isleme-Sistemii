@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SatelliteImageExplorer.Data;
-using SatelliteImageExplorer.Models;
+using UyduGoruntu.Data;
+using UyduGoruntu.Models;
 
-namespace SatelliteImageExplorer.Controllers
+namespace UyduGoruntu.Controllers
 {
     public class ForestsController : Controller
     {
