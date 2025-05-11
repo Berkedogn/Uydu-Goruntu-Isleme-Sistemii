@@ -1,1 +1,33 @@
-﻿
+﻿@model SatelliteImageExplorer.Models.Forest
+
+@{
+    ViewData["Title"] = "Ormanı Düzenle";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="City"></label>
+        <input asp-for="City" class="form-control" />
+        <span asp-validation-for="City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImagePath"></label>
+        <input asp-for="ImagePath" class="form-control" />
+        <span asp-validation-for="ImagePath" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
