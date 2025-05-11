@@ -1,1 +1,20 @@
-﻿
+@model SatelliteImageExplorer.Models.Forest
+
+@{
+    ViewData["Title"] = "Orman Sil";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>“@Model.Name” ormanını silmek istediğinize emin misiniz?</h4>
+
+<div class="mb-3">
+    <strong>Açıklama:</strong> @Model.Description<br />
+    <strong>Şehir:</strong> @Model.City
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
