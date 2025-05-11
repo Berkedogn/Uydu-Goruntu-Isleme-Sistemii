@@ -1,7 +1,7 @@
 // Models/Forest.cs
-using System.ComponentModel.DataAnnotations;
+using System.UyduGoruntu.DataAnnotations;
 
-namespace SatelliteImageExplorer.Models
+namespace UyduGoruntu.Models
 {
     public class Forest
     {
