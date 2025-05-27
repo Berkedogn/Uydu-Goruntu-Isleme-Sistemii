@@ -1,19 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Uydu Görüntüsü Arama ve Yükleme";
+@{
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<h2>Uydu Görüntüsü Arama</h2>
+<!-- Animate.css ve Bootstrap -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-<form method="get" asp-controller="Satellite" asp-action="Search">
-    <input type="text" name="region" placeholder="Bölge adı (örn: Akçakoca)" />
-    <button type="submit">Ara</button>
-</form>
+<!-- Özel CSS -->
+<link rel="stylesheet" href="~/css/site.css" />
 
-<hr />
+<section class="hero-section text-white d-flex align-items-center justify-content-center vh-100">
+    <div class="container bg-dark bg-opacity-75 p-5 rounded shadow-lg animate__animated animate__fadeIn">
+        <h1 class="display-4 fw-bold text-warning animate__animated animate__fadeInDown">Hoş Geldiniz</h1>
+        <p class="lead mt-3 animate__animated animate__fadeIn animate__delay-1s">
+            Uydu Görüntüsü Tabanlı Doğa Keşfi Uygulamasına hoş geldiniz.
+        </p>
+        <hr class="border-light my-4 animate__animated animate__fadeIn animate__delay-2s" />
+        <p class="animate__animated animate__fadeIn animate__delay-3s">
+            Şehirleri, denizleri, plajları, dağları, ormanları ve tarihi yerleri keşfedin!
+        </p>
 
-<h2>Veya Görsel Yükle</h2>
-
-<form method="post" enctype="multipart/form-data" asp-controller="Satellite" asp-action="UploadImage">
-    <input type="file" name="image" />
-    <button type="submit">Yükle</button>
-</form>
+        <div class="row justify-content-center mt-5 g-3 animate__animated animate__zoomIn animate__delay-4s">
+            <div class="col-6 col-sm-4 col-md-3">
+                <a href="/Cities" class="btn custom-btn w-100">Şehirleri İncele</a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3">
+                <a href="/Seas" class="btn custom-btn w-100">Denizleri İncele</a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3">
+                <a href="/Beaches" class="btn custom-btn w-100">Plajları İncele</a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3">
+                <a href="/Mountains" class="btn custom-btn w-100">Dağları İncele</a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3">
+                <a href="/Forests" class="btn custom-btn w-100">Ormanları İncele</a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3">
+                <a href="/HistoricalPlaces" class="btn custom-btn w-100">Tarihi Yerleri İncele</a>
+            </div>
+        </div>
+    </div>
+</section>
