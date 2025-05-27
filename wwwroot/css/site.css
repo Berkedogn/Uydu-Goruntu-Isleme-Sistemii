@@ -1,3 +1,4 @@
+/* Genel Gövde Ayarları */
 body {
     background: url('/images/uydu.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -8,41 +9,83 @@ body {
     background-color: #121212; /* yedek zemin */
 }
 
+/* Navbar ve Footer */
 .navbar, .footer {
-    background-color: rgba(0, 0, 0, 0.7); /* yar� saydam siyah */
+    background-color: rgba(0, 0, 0, 0.7); /* yarı saydam siyah */
     color: #f5f5f5;
+    padding: 15px 0;
+    font-weight: 500;
 }
 
+/* İçerik Kutusu */
 .container {
-    background-color: rgba(18, 18, 18, 0.8); /* koyu zemin */
-    padding: 40px;
+    background-color: rgba(18, 18, 18, 0.85); /* koyu ve şeffaf zemin */
+    padding: 40px 30px;
     border-radius: 15px;
     text-align: center;
     max-width: 850px;
-    margin: auto;
-    margin-top: 100px;
+    margin: 100px auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Ba�l�klar */
+/* Başlıklar */
 h1, h2, h3 {
-    color: #FFA07A; /* a��k kiremit / somon */
+    color: #FFA07A; /* açık kiremit / somon */
+    margin-bottom: 20px;
 }
 
-/* Butonlar */
+/* Paragraflar */
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Genel Buton Stili */
 .btn {
     background-color: #A0522D; /* kiremit rengi */
     border: none;
     color: white;
     padding: 12px 20px;
-    margin: 10px;
+    margin: 10px 5px;
     border-radius: 10px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    font-weight: bold;
 }
 
-    .btn:hover {
-        background-color: #D2691E; /* daha canl� kiremit */
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+/* Buton Hover Efekti */
+.btn:hover {
+    background-color: #D2691E; /* daha canlı kiremit */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+/* Linklerin Renk Ayarı (Navbar veya Footer içindeyse) */
+.navbar a,
+.footer a {
+    color: #FFA07A;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navbar a:hover,
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Ayarlar */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px 20px;
+        margin-top: 60px;
     }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .btn {
+        font-size: 0.95rem;
+        padding: 10px 15px;
+    }
+}
