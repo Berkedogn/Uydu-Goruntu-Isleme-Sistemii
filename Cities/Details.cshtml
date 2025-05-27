@@ -1,4 +1,4 @@
-﻿@model SatelliteImageExplorer.Models.City
+@model UyduGoruntu.Models.City
 
 @{
     ViewData["Title"] = "Şehir Detayları";
@@ -12,8 +12,9 @@
 
     @if (!string.IsNullOrEmpty(Model.ImageUrl))
     {
-        <img src="@Model.ImageUrl" alt="@Model.Name" width="300" />
+        <img src="@Model.ImageUrl" alt="@Model.Name Uydu Görüntüsü" style="max-width:100%; height:auto;" />
     }
+
 </div>
 
 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
