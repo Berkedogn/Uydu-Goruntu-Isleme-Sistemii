@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SatelliteImageExplorer.Data;
-using SatelliteImageExplorer.Models;
+using System.Threading.Tasks;
+using System.Linq;
+using UyduGoruntu.Data;
+using UyduGoruntu.Models;
 
-namespace SatelliteImageExplorer.Controllers
+namespace UyduGoruntu.Controllers
 {
     public class HistoricPlacesController : Controller
     {
@@ -19,64 +21,92 @@ namespace SatelliteImageExplorer.Controllers
             return View(await _context.HistoricPlaces.ToListAsync());
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var historicPlace = await _context.HistoricPlaces.FirstOrDefaultAsync(m => m.Id == id);
+            if (historicPlace == null) return NotFound();
+
+            return View(historicPlace);
+        }
+
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(HistoricPlace place)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(HistoricPlace historicPlace)
         {
-            if (!ModelState.IsValid)
-                return View(place);
-
-            _context.HistoricPlaces.Add(place);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _context.HistoricPlaces.Add(historicPlace);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(historicPlace);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            var place = await _context.HistoricPlaces.FindAsync(id);
-            if (place == null) return NotFound();
-            return View(place);
+            if (id == null) return NotFound();
+
+            var historicPlace = await _context.HistoricPlaces.FindAsync(id);
+            if (historicPlace == null) return NotFound();
+
+            return View(historicPlace);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, HistoricPlace place)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, HistoricPlace historicPlace)
         {
-            if (id != place.Id) return NotFound();
+            if (id != historicPlace.Id) return NotFound();
 
-            if (!ModelState.IsValid) return View(place);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(historicPlace);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!_context.HistoricPlaces.Any(e => e.Id == id))
+                        return NotFound();
+                    else
+                        throw;
+                }
 
-            _context.HistoricPlaces.Update(place);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            return View(historicPlace);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            var place = await _context.HistoricPlaces.FindAsync(id);
-            if (place == null) return NotFound();
-            return View(place);
+            if (id == null) return NotFound();
+
+            var historicPlace = await _context.HistoricPlaces.FirstOrDefaultAsync(m => m.Id == id);
+            if (historicPlace == null) return NotFound();
+
+            return View(historicPlace);
         }
 
-        [HttpPost, ActionName("DeleteConfirmed")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var place = await _context.HistoricPlaces.FindAsync(id);
-            if (place == null) return NotFound();
+            var historicPlace = await _context.HistoricPlaces.FindAsync(id);
+            if (historicPlace != null)
+            {
+                _context.HistoricPlaces.Remove(historicPlace);
+                await _context.SaveChangesAsync();
+            }
 
-            _context.HistoricPlaces.Remove(place);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Details(int id)
-        {
-            var place = await _context.HistoricPlaces.FindAsync(id);
-            if (place == null) return NotFound();
-            return View(place);
         }
     }
 }
