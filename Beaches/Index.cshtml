@@ -1,21 +1,16 @@
-﻿@* Views/Beaches/Index.cshtml *@
-@model IEnumerable<SatelliteImageExplorer.Models.Beach>
+@model IEnumerable<UyduGoruntu.Models.Beach>
 
-@{
-    ViewData["Title"] = "Sahiller";
-}
+<h2>Plajlar</h2>
 
-<h2>Sahiller</h2>
+<!-- Yeni Plaj Ekle Butonu -->
 <p>
-    <a asp-action="Create" class="btn btn-success">+ Yeni Sahil Ekle</a>
+    <a asp-action="Create" class="btn btn-primary">Yeni Plaj Ekle</a>
 </p>
-<table class="table table-striped">
+
+<table class="table">
     <thead>
         <tr>
-            <th>Ad</th>
-            <th>Şehir</th>
-            <th>Açıklama</th>
-            <th>Görsel</th>
+            <th>Plaj Adı</th>
             <th>İşlemler</th>
         </tr>
     </thead>
@@ -23,19 +18,12 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Name</td>
-                <td>@item.City</td>
-                <td>@item.Description</td>
                 <td>
-                    @if (!string.IsNullOrEmpty(item.ImageUrl))
-                    {
-                        <img src="@item.ImageUrl" width="100" />
-                    }
+                    <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Düzenle</a>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detay</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Sil</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
                 </td>
             </tr>
         }
