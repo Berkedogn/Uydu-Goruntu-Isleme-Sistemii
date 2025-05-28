@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using UyduGoruntu.Data;
 using UyduGoruntu.Models;
 
-namespace UyduGoruntu.Controllers
+namespace SatelliteImageExplorer.Controllers
 {
     public class ForestsController : Controller
     {
@@ -17,8 +17,7 @@ namespace UyduGoruntu.Controllers
         // GET: Forests
         public async Task<IActionResult> Index()
         {
-            var forests = await _context.Forests.ToListAsync();
-            return View(forests);
+            return View(await _context.Forests.ToListAsync());
         }
 
         // GET: Forests/Details/5
@@ -26,8 +25,7 @@ namespace UyduGoruntu.Controllers
         {
             if (id == null) return NotFound();
 
-            var forest = await _context.Forests
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var forest = await _context.Forests.FirstOrDefaultAsync(m => m.Id == id);
             if (forest == null) return NotFound();
 
             return View(forest);
@@ -42,7 +40,7 @@ namespace UyduGoruntu.Controllers
         // POST: Forests/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,ImagePath,City")] Forest forest)
+        public async Task<IActionResult> Create(Forest forest)
         {
             if (ModelState.IsValid)
             {
@@ -60,13 +58,14 @@ namespace UyduGoruntu.Controllers
 
             var forest = await _context.Forests.FindAsync(id);
             if (forest == null) return NotFound();
+
             return View(forest);
         }
 
         // POST: Forests/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,ImagePath,City")] Forest forest)
+        public async Task<IActionResult> Edit(int id, Forest forest)
         {
             if (id != forest.Id) return NotFound();
 
@@ -79,7 +78,7 @@ namespace UyduGoruntu.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ForestExists(forest.Id))
+                    if (!_context.Forests.Any(e => e.Id == id))
                         return NotFound();
                     else
                         throw;
@@ -94,8 +93,7 @@ namespace UyduGoruntu.Controllers
         {
             if (id == null) return NotFound();
 
-            var forest = await _context.Forests
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var forest = await _context.Forests.FirstOrDefaultAsync(m => m.Id == id);
             if (forest == null) return NotFound();
 
             return View(forest);
@@ -110,11 +108,6 @@ namespace UyduGoruntu.Controllers
             _context.Forests.Remove(forest);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ForestExists(int id)
-        {
-            return _context.Forests.Any(e => e.Id == id);
         }
     }
 }
