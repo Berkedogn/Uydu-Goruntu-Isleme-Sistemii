@@ -1,0 +1,15 @@
+﻿@* Views/Seas/Delete.cshtml *@
+@model UyduGoruntu.Models.Sea
+
+@{
+    ViewData["Title"] = "Deniz Sil";
+}
+
+<h2>Denizi Sil</h2>
+<h3>@Model.Name isimli denizi silmek istediğinize emin misiniz?</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

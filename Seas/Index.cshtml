@@ -1,0 +1,31 @@
+﻿@model IEnumerable<UyduGoruntu.Models.Sea>
+
+<h2>Denizler</h2>
+
+<!-- Yeni Deniz Ekle Butonu -->
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Deniz Ekle</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Deniz Adı</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
