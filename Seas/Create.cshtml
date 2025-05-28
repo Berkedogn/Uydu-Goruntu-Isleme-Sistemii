@@ -1,30 +1,79 @@
-﻿@model UyduGoruntu.Models.Sea
+@model UyduGoruntu.Models.Sea
 
 @{
     ViewData["Title"] = "Yeni Deniz Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Layout'un varsa
 }
 
-<h1>Yeni Deniz Ekle</h1>
+<style>
+    body {
+        background: url('/images/sea-background.gif') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Deniz Adı</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+    .form-container {
+        background-color: rgba(0, 51, 102, 0.8);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 600px;
+        margin: 50px auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    }
 
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Açıklama</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
 
-    <div class="form-group">
-        <label asp-for="ImagePath" class="control-label">Görsel Dosya Yolu</label>
-        <input asp-for="ImagePath" class="form-control" />
-        <span asp-validation-for="ImagePath" class="text-danger"></span>
-    </div>
+    label {
+        color: #cceeff;
+        font-weight: bold;
+    }
 
-    <button type="submit" class="btn btn-primary">Ekle</button>
-    <a asp-action="Index" class="btn btn-secondary">İptal</a>
-</form>
+    .btn-primary {
+        background-color: #00bfff;
+        border-color: #00bfff;
+    }
+
+    .btn-secondary {
+        background-color: #004466;
+        border-color: #003344;
+        color: white;
+    }
+
+    .text-danger {
+        color: #ff9999;
+    }
+</style>
+
+<div class="form-container">
+    <h1>Yeni Deniz Ekle</h1>
+
+    <form asp-action="Create">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">Deniz Adı</label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">Açıklama</label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImagePath" class="control-label">Görsel Dosya Yolu</label>
+            <input asp-for="ImagePath" class="form-control" placeholder="/images/deniz.jpg" />
+            <span asp-validation-for="ImagePath" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mt-3">
+            <button type="submit" class="btn btn-primary">Ekle</button>
+            <a asp-action="Index" class="btn btn-secondary ml-2">İptal</a>
+        </div>
+    </form>
+</div>
