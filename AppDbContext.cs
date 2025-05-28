@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SatelliteImageExplorer.Models; // Tüm model sınıflarını buradan çekiyoruz
+using Microsoft.EntityFrameworkCore;
+using UyduGoruntu.Models; // Tüm model sınıflarını buradan çekiyoruz
 
-namespace SatelliteImageExplorer.Data
+namespace UyduGoruntu.Data
 {
     /// <summary>
     /// Uygulamanın veritabanı bağlamı (DbContext)
@@ -28,6 +28,8 @@ namespace SatelliteImageExplorer.Data
 
         /// <summary>Sahiller tablosu</summary>
         public DbSet<Beach> Beaches { get; set; }
+
+
 
         /// <summary>Ormanlar tablosu</summary>
         public DbSet<Forest> Forests { get; set; }
