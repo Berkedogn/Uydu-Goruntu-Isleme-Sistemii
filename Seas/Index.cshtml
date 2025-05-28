@@ -1,31 +1,106 @@
-﻿@model IEnumerable<UyduGoruntu.Models.Sea>
+@model IEnumerable<UyduGoruntu.Models.Sea>
 
-<h2>Denizler</h2>
+@{
+    ViewData["Title"] = "Denizler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<!-- Yeni Deniz Ekle Butonu -->
-<p>
-    <a asp-action="Create" class="btn btn-primary">Yeni Deniz Ekle</a>
-</p>
+<style>
+    body {
+        background: url('/images/sea-background.gif') no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Deniz Adı</th>
-            <th>İşlemler</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
-                </td>
-            </tr>
+    .container-box {
+        background-color: rgba(0, 51, 102, 0.85);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 900px;
+        margin: 50px auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #ffffff;
+    }
+
+    .btn-primary {
+        background-color: #00bfff;
+        border-color: #00bfff;
+        margin-bottom: 20px;
+    }
+
+    .btn-warning {
+        background-color: #ffa500;
+        border-color: #cc8400;
+        color: black;
+    }
+
+    .btn-danger {
+        background-color: #e60000;
+        border-color: #cc0000;
+    }
+
+    table {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #003366;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th {
+        background-color: #0077b6;
+        color: white;
+        text-align: center;
+    }
+
+    td {
+        vertical-align: middle !important;
+        text-align: center;
+    }
+
+    a {
+        color: #003366;
+        font-weight: bold;
+    }
+
+        a:hover {
+            color: #00bfff;
+            text-decoration: none;
         }
-    </tbody>
-</table>
+</style>
+
+<div class="container-box">
+    <h2>Denizler</h2>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">🌊 Yeni Deniz Ekle</a>
+    </p>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Deniz Adı</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
