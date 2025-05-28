@@ -1,6 +1,5 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using UyduGoruntu.Models;
 
 namespace UyduGoruntu.Controllers
@@ -14,26 +13,23 @@ namespace UyduGoruntu.Controllers
             _logger = logger;
         }
 
-        // Ana sayfa
+        // Ana Sayfa Index Action'ı
         public IActionResult Index()
         {
-            return View();
+            return View(); // Ana sayfa görünümünü döndürüyoruz
         }
 
-        // Gizlilik sayfası (gerekirse)
+        // Gizlilik Sayfası (Privacy)
         public IActionResult Privacy()
         {
             return View();
         }
 
-        // Hatalar için özel sayfa
+        // Hata Sayfası
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel 
-            { 
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
-            });
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
