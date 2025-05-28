@@ -1,0 +1,19 @@
+﻿@model UyduGoruntu.Models.TravelDestination
+@{
+    ViewData["Title"] = "Detay";
+}
+
+<h2>Detay</h2>
+
+<div>
+    <h4>@Model.Title</h4>
+    <hr />
+    <p><strong>Konum:</strong> @Model.Location</p>
+    <p><strong>Açıklama:</strong> @Model.Description</p>
+    <img src="@Model.ImageUrl" width="400" />
+</div>
+
+<p>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
+    <a asp-action="Index">Listeye Dön</a>
+</p>

@@ -1,0 +1,19 @@
+﻿@model UyduGoruntu.Models.TravelDestination
+@{
+    ViewData["Title"] = "Sil";
+}
+
+<h2>Sil</h2>
+
+<div>
+    <h4>@Model.Title</h4>
+    <p>Bu kaydı silmek istediğinizden emin misiniz?</p>
+    <p><strong>Konum:</strong> @Model.Location</p>
+    <img src="@Model.ImageUrl" width="300" />
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
