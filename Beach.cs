@@ -10,9 +10,6 @@ namespace UyduGoruntu.Models
         [StringLength(100)]
         public string Name { get; set; }
 
-        [Display(Name = "Konum")]
-        public string? Location { get; set; }
-
         [Display(Name = "Açıklama")]
         public string? Description { get; set; }
 
