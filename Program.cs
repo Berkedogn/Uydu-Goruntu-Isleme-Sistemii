@@ -1,22 +1,21 @@
-using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using UyduGoruntu.Data; // AppDbContext'in namespace'i
-using UyduGoruntu.Models; // Eğer varsa model namespace
+using UyduGoruntu.Data; // AppDbContext'in namespace'i (UyduGoruntu projesi için)
+using UyduGoruntu.Models; // Proje ismiyle uyumlu model namespace'i
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔗 Veritabanı bağlantısını yapılandır (appsettings.json > DefaultConnection)
+// 🔗 Bağlantı cümlesini oku ve DbContext'i konfigüre et
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 💡 MVC & Razor Pages yapılandırması
+// 🔧 MVC servislerini ekle
 builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
-builder.Services.AddRazorPages()
-    .AddRazorRuntimeCompilation(); // Değişiklikleri anlık görmek için
+// 💡 Razor runtime derleyici (değişiklikleri anında görmek için - isteğe bağlı)
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 var app = builder.Build();
 
@@ -27,25 +26,17 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// 🌐 HTTPS, Statik Dosyalar ve Yönlendirme
+// 🌐 HTTPS ve Static Files
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+// MVC routing işlemleri
 app.UseRouting();
 app.UseAuthorization();
 
-// 🌐 (İsteğe bağlı) Kültür desteği (örn: Türkçe varsayılan)
-var supportedCultures = new[] { new CultureInfo("tr-TR"), new CultureInfo("en-US") };
-app.UseRequestLocalization(new RequestLocalizationOptions
-{
-    DefaultRequestCulture = new RequestCulture("tr-TR"),
-    SupportedCultures = supportedCultures,
-    SupportedUICultures = supportedCultures
-});
-
-// 🔁 Varsayılan route ayarı (HomeController > Index)
+// Varsayılan route yapılandırması
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
