@@ -1,20 +1,28 @@
-@model SatelliteImageExplorer.Models.Forest
+@model UyduGoruntu.Models.Forest
 
 @{
     ViewData["Title"] = "Orman Sil";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>Orman Sil</h2>
 
-<h4>“@Model.Name” ormanını silmek istediğinize emin misiniz?</h4>
+<h3>Bu ormanı silmek istediğinize emin misiniz?</h3>
 
-<div class="mb-3">
-    <strong>Açıklama:</strong> @Model.Description<br />
-    <strong>Şehir:</strong> @Model.City
+<div>
+    <h4>@Model.Name</h4>
+    <p><strong>Şehir:</strong> @Model.City</p>
+    <p><strong>Açıklama:</strong> @Model.Description</p>
+    <p>
+        <strong>Resim:</strong><br />
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" alt="Orman resmi" width="300" />
+        }
+    </p>
 </div>
 
-<form asp-action="Delete">
+<form asp-action="Delete" method="post">
     <input type="hidden" asp-for="Id" />
-    <button type="submit" class="btn btn-danger">Sil</button>
+    <button type="submit" class="btn btn-danger mt-2">Sil</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
 </form>
