@@ -1,14 +1,14 @@
-﻿@model SatelliteImageExplorer.Models.City
+@model UyduGoruntu.Models.City
 
 @{
     ViewData["Title"] = "Şehir Sil";
 }
 
-<h2>Şehir Sil</h2>
+<h2>@Model.Name Şehrini Sil</h2>
 
-<h3>@Model.Name adlı şehir silinecek. Emin misiniz?</h3>
+<p>Bu şehri silmek istediğinizden emin misiniz?</p>
 
-<form asp-action="DeleteConfirmed">
+<form asp-action="Delete">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Sil</button>
     <a asp-action="Index" class="btn btn-secondary">İptal</a>
