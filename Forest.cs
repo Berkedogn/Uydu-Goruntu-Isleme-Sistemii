@@ -1,5 +1,5 @@
-// Models/Forest.cs
-using System.UyduGoruntu.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace UyduGoruntu.Models
 {
@@ -16,9 +16,9 @@ namespace UyduGoruntu.Models
         [Display(Name = "Açıklama")]
         public string Description { get; set; }
 
-        [Url(ErrorMessage = "Geçerli bir URL girin.")]
         [Display(Name = "Resim URL")]
         public string ImagePath { get; set; }
+
 
         [Required(ErrorMessage = "Şehir bilgisi zorunludur.")]
         [Display(Name = "Şehir")]
