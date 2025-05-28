@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace SatelliteImageExplorer.Models
+namespace UyduGoruntu.Models
 {
     public class HistoricPlace
     {
