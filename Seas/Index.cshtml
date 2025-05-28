@@ -1,8 +1,8 @@
-@model UyduGoruntu.Models.Sea
+@model IEnumerable<UyduGoruntu.Models.Sea>
 
 @{
-    ViewData["Title"] = "Yeni Deniz Ekle";
-    Layout = "~/Views/Shared/_Layout.cshtml"; // Layout'un varsa
+    ViewData["Title"] = "Denizler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -13,67 +13,94 @@
         color: white;
     }
 
-    .form-container {
-        background-color: rgba(0, 51, 102, 0.8);
+    .container-box {
+        background-color: rgba(0, 51, 102, 0.85);
         padding: 30px;
         border-radius: 15px;
-        max-width: 600px;
+        max-width: 900px;
         margin: 50px auto;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     }
 
-    h1 {
+    h2 {
         text-align: center;
         margin-bottom: 25px;
         color: #ffffff;
     }
 
-    label {
-        color: #cceeff;
-        font-weight: bold;
-    }
-
     .btn-primary {
         background-color: #00bfff;
         border-color: #00bfff;
+        margin-bottom: 20px;
     }
 
-    .btn-secondary {
-        background-color: #004466;
-        border-color: #003344;
+    .btn-warning {
+        background-color: #ffa500;
+        border-color: #cc8400;
+        color: black;
+    }
+
+    .btn-danger {
+        background-color: #e60000;
+        border-color: #cc0000;
+    }
+
+    table {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #003366;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th {
+        background-color: #0077b6;
         color: white;
+        text-align: center;
     }
 
-    .text-danger {
-        color: #ff9999;
+    td {
+        vertical-align: middle !important;
+        text-align: center;
     }
+
+    a {
+        color: #003366;
+        font-weight: bold;
+    }
+
+        a:hover {
+            color: #00bfff;
+            text-decoration: none;
+        }
 </style>
 
-<div class="form-container">
-    <h1>Yeni Deniz Ekle</h1>
+<div class="container-box">
+    <h2>Denizler</h2>
 
-    <form asp-action="Create">
-        <div class="form-group">
-            <label asp-for="Name" class="control-label">Deniz Adı</label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">🌊 Yeni Deniz Ekle</a>
+    </p>
 
-        <div class="form-group">
-            <label asp-for="Description" class="control-label">Açıklama</label>
-            <textarea asp-for="Description" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="ImagePath" class="control-label">Görsel Dosya Yolu</label>
-            <input asp-for="ImagePath" class="form-control" placeholder="/images/deniz.jpg" />
-            <span asp-validation-for="ImagePath" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary">Ekle</button>
-            <a asp-action="Index" class="btn btn-secondary ml-2">İptal</a>
-        </div>
-    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Deniz Adı</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Düzenle</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
