@@ -1,31 +1,100 @@
 @model UyduGoruntu.Models.City
 
-<form asp-action="Create">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+@{
+    ViewData["Title"] = "Yeni Şehir Ekle";
+}
 
-    <div class="form-group">
-        <label asp-for="Population"></label>
-        <input asp-for="Population" class="form-control" />
-        <span asp-validation-for="Population" class="text-danger"></span>
-    </div>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #1a2a6c);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+        color: white;
+    }
 
-    <div class="form-group">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
+    @@keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 
-    <div class="form-group">
-        <label asp-for="ImageUrl"></label>
-        <input asp-for="ImageUrl" class="form-control" placeholder="/images/akcakoca.jpg" />
-        <small class="form-text text-muted">
-            Lütfen resmin wwwroot/images klasöründeki tam yolunu yazınız. Örnek: /images/akcakoca.jpg
-        </small>
-    </div>
+    .form-container {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 40px;
+        margin: 60px auto;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
-    <button type="submit" class="btn btn-success">Kaydet</button>
-    <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
-</form>
+    .form-group label {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid #ccc;
+        color: white;
+    }
+
+    .form-text {
+        color: #ccc;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>
+
+<div class="form-container">
+    <h2 class="text-center">Yeni Şehir Ekle</h2>
+    <form asp-action="Create">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Population"></label>
+            <input asp-for="Population" class="form-control" />
+            <span asp-validation-for="Population" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ImageUrl"></label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="/images/akcakoca.jpg" />
+            <small class="form-text">
+                Lütfen resmin wwwroot/images klasöründeki tam yolunu yazınız. Örnek: <code>/images/akcakoca.jpg</code>
+            </small>
+        </div>
+
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+    </form>
+</div>
