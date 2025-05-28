@@ -1,22 +1,36 @@
-﻿@model SatelliteImageExplorer.Models.HistoricPlace
+@model UyduGoruntu.Models.HistoricPlace
+
 @{
-    ViewData["Title"] = "Detaylar";
+    ViewData["Title"] = "Detay";
 }
 
-<h2>Detaylar</h2>
+<h2>@Model.Name</h2>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">Ad</dt>
-        <dd class="col-sm-10">@Model.Name</dd>
+<div class="card" style="max-width: 600px;">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-4">Konum</dt>
+            <dd class="col-sm-8">@Model.Location</dd>
 
-        <dt class="col-sm-2">Açıklama</dt>
-        <dd class="col-sm-10">@Model.Description</dd>
+            <dt class="col-sm-4">Açıklama</dt>
+            <dd class="col-sm-8">@Model.Description</dd>
 
-        <dt class="col-sm-2">Konum</dt>
-        <dd class="col-sm-10">@Model.Location</dd>
-    </dl>
+            <dt class="col-sm-4">Görsel</dt>
+            <dd class="col-sm-8">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="Tarihi Yer Görseli" class="img-fluid" style="max-height: 300px;" />
+                }
+                else
+                {
+                    <span>Görsel yok</span>
+                }
+            </dd>
+        </dl>
+
+        <div class="mt-3">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
+            <a asp-action="Index" class="btn btn-secondary">Geri Dön</a>
+        </div>
+    </div>
 </div>
-
-<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
-<a asp-action="Index" class="btn btn-secondary">Geri</a>
