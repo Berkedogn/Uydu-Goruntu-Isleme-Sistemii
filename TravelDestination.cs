@@ -1,20 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace SatelliteImageExplorer.Models
+namespace UyduGoruntu.Models
 {
     public class TravelDestination
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Yer adı zorunludur.")]
-        [MaxLength(100)]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Başlık boş bırakılamaz.")]
+        [StringLength(100, ErrorMessage = "Başlık en fazla 100 karakter olabilir.")]
+        public string Title { get; set; }
 
-        [Required(ErrorMessage = "Açıklama zorunludur.")]
-        public string Description { get; set; }
+        [Display(Name = "Açıklama")]
+        [DataType(DataType.MultilineText)]
+        public string? Description { get; set; }
 
-        public string ImagePath { get; set; }
+        [Required(ErrorMessage = "Konum bilgisi girilmelidir.")]
+        public string Location { get; set; }
 
-        public string City { get; set; }
+        [Display(Name = "Görsel URL")]
+        [Required(ErrorMessage = "Bir görsel URL giriniz.")]
+        public string ImageUrl { get; set; }
     }
 }
