@@ -1,18 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace SatelliteImageExplorer.Models
+namespace UyduGoruntu.Models
 {
     public class Sea
     {
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Deniz adı zorunludur.")]
-        [MaxLength(100)]
-        public string Name { get; set; }
+        [StringLength(100)]
+        public string? Name { get; set; }
 
-        [Required(ErrorMessage = "Açıklama zorunludur.")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string ImagePath { get; set; }
+        [Display(Name = "Görsel Dosya Yolu")]
+        public string? ImagePath { get; set; }
     }
+
 }
