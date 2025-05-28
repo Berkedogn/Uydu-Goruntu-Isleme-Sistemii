@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
-namespace SatelliteImageExplorer.Models
+namespace UyduGoruntu.Models
 {
     public class Mountain
     {
@@ -20,5 +20,9 @@ namespace SatelliteImageExplorer.Models
         [Display(Name = "Görsel URL")]
         [Required(ErrorMessage = "Bir görsel URL giriniz.")]
         public string ImageUrl { get; set; }
+
+        [Required(ErrorMessage = "Yükseklik bilgisi zorunludur.")]
+        [Range(1, 9000, ErrorMessage = "Yükseklik 1 ile 9000 metre arasında olmalıdır.")]
+        public int Height { get; set; } // <-- Eksik olan alan
     }
 }
