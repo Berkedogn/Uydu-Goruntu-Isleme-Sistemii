@@ -1,22 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SatelliteImageExplorer.Data;
-using SatelliteImageExplorer.Models;
+using Microsoft.AspNetCore.Mvc;
+using UyduGoruntu.Models;
 
-namespace SatelliteImageExplorer.Controllers
+namespace UyduGoruntu.Controllers
 {
     public class MountainsController : Controller
     {
-        private readonly AppDbContext _context;
+        private static List<Mountain> _mountains = new();
 
-        public MountainsController(AppDbContext context)
+        public IActionResult Index()
         {
-            _context = context;
+            return View(_mountains);
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Details(int id)
         {
-            return View(await _context.Mountains.ToListAsync());
+            var mountain = _mountains.FirstOrDefault(m => m.Id == id);
+            if (mountain == null) return NotFound();
+            return View(mountain);
         }
 
         public IActionResult Create()
@@ -25,75 +25,55 @@ namespace SatelliteImageExplorer.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Mountain mountain)
+        public IActionResult Create(Mountain mountain)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(mountain);
-                await _context.SaveChangesAsync();
+                mountain.Id = _mountains.Count > 0 ? _mountains.Max(m => m.Id) + 1 : 1;
+                _mountains.Add(mountain);
                 return RedirectToAction(nameof(Index));
             }
             return View(mountain);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
-            if (id == null) return NotFound();
-
-            var mountain = await _context.Mountains.FindAsync(id);
+            var mountain = _mountains.FirstOrDefault(m => m.Id == id);
             if (mountain == null) return NotFound();
-
             return View(mountain);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Mountain mountain)
+        public IActionResult Edit(Mountain mountain)
         {
-            if (id != mountain.Id) return NotFound();
+            var existing = _mountains.FirstOrDefault(m => m.Id == mountain.Id);
+            if (existing == null) return NotFound();
 
             if (ModelState.IsValid)
             {
-                _context.Update(mountain);
-                await _context.SaveChangesAsync();
+                existing.Name = mountain.Name;
+                existing.City = mountain.City;
+                existing.Description = mountain.Description;
+                existing.ImageUrl = mountain.ImageUrl;
+                existing.Height = mountain.Height;
                 return RedirectToAction(nameof(Index));
             }
             return View(mountain);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
-            if (id == null) return NotFound();
-
-            var mountain = await _context.Mountains
-                .FirstOrDefaultAsync(m => m.Id == id);
-
+            var mountain = _mountains.FirstOrDefault(m => m.Id == id);
             if (mountain == null) return NotFound();
-
             return View(mountain);
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var mountain = await _context.Mountains.FindAsync(id);
-            _context.Mountains.Remove(mountain);
-            await _context.SaveChangesAsync();
+            var mountain = _mountains.FirstOrDefault(m => m.Id == id);
+            if (mountain != null) _mountains.Remove(mountain);
             return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var mountain = await _context.Mountains
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (mountain == null) return NotFound();
-
-            return View(mountain);
         }
     }
 }
